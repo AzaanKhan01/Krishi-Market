@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Market - Farmer-to-Consumer Agri Marketplace</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        agri: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">🌾</span>
+                <span class="text-xl font-bold text-agri-700 tracking-wide">Krishi Market</span>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <button onclick="switchTab('consumer')" id="nav-consumer" class="font-medium text-agri-600 border-b-2 border-agri-600 pb-1 transition">Consumer Marketplace</button>
+                <button onclick="switchTab('farmer')" id="nav-farmer" class="font-medium text-gray-500 hover:text-agri-600 pb-1 transition">Farmer Dashboard</button>
+                <button onclick="switchTab('admin')" id="nav-admin" class="font-medium text-gray-500 hover:text-agri-600 pb-1 transition">Admin Analytics</button>
+            </nav>
+            <div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-agri-100 text-agri-700">
+                    🟢 Live Demo
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= 1. CONSUMER MARKETPLACE TAB ================= -->
+        <section id="tab-consumer" class="space-y-6">
+            <div class="bg-gradient-to-r from-agri-600 to-emerald-700 rounded-2xl p-8 text-white shadow-lg">
+                <h1 class="text-3xl font-bold mb-2">Fresh From Local Farms to Your Table</h1>
+                <p class="text-emerald-100 max-w-xl">Directly connect with verified local farmers. Get pesticide-free, organic vegetables, fresh dairy, and grains at fair prices.</p>
+            </div>
+
+            <!-- Filters & Search -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Search products or crops (e.g. Tomatoes, Honey)..." class="w-full sm:w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-agri-600">
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <select id="categoryFilter" onchange="filterProducts()" class="px-4 py-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-agri-600">
+                        <option value="all">All Categories</option>
+                        <option value="Vegetables">Vegetables</option>
+                        <option value="Fruits">Fruits</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Grains">Grains</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+            </div>
+        </section>
+
+        <!-- ================= 2. FARMER DASHBOARD TAB ================= -->
+        <section id="tab-farmer" class="hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Welcome, Ramesh Kumar 🚜</h2>
+                    <p class="text-sm text-gray-500">Green Valley Organic Farm • Verified Producer</p>
+                </div>
+                <button onclick="alert('Open Add Product Modal')" class="bg-agri-600 hover:bg-agri-700 text-white px-4 py-2 rounded-lg font-medium shadow transition">
+                    + Add New Listing
+                </button>
+            </div>
+
+            <!-- Farmer KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Total Revenue (This Month)</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">₹78,250</p>
+                    <span class="text-xs text-agri-600 font-semibold bg-agri-50 px-2 py-0.5 rounded">+17% from last month</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Active Listings</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">10 Crops</p>
+                    <span class="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded">All in stock</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Order Fulfillment Rate</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">98.5%</p>
+                    <span class="text-xs text-agri-600 font-semibold bg-agri-50 px-2 py-0.5 rounded">Excellent Rating</span>
+                </div>
+            </div>
+
+            <!-- Recent Farmer Orders -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h3 class="font-bold text-gray-800">Recent Customer Orders</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-xs font-semibold text-gray-500 uppercase">
+                                <th class="px-6 py-3">Order ID</th>
+                                <th class="px-6 py-3">Product</th>
+                                <th class="px-6 py-3">Qty</th>
+                                <th class="px-6 py-3">Total Amount</th>
+                                <th class="px-6 py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-sm">
+                            <tr>
+                                <td class="px-6 py-4 font-medium">#ORD-9021</td>
+                                <td class="px-6 py-4">Fresh Organic Tomatoes</td>
+                                <td class="px-6 py-4">10 kg</td>
+                                <td class="px-6 py-4">₹450</td>
+                                <td class="px-6 py-4"><span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full text-xs font-medium">Pending Confirm</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium">#ORD-9018</td>
+                                <td class="px-6 py-4">Alphonso Mangoes</td>
+                                <td class="px-6 py-4">5 kg</td>
+                                <td class="px-6 py-4">₹1,250</td>
+                                <td class="px-6 py-4"><span class="bg-agri-100 text-agri-700 px-2.5 py-1 rounded-full text-xs font-medium">Dispatched</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. ADMIN ANALYTICS TAB (WITH DUMMY KPIS) ================= -->
+        <section id="tab-admin" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-gray-900">Platform Admin & Performance Analytics</h2>
+                <p class="text-sm text-gray-500">Monitor overall marketplace health, growth metrics, and verifications.</p>
+            </div>
+
+            <!-- Platform-Wide Dummy KPIs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Onboarded Farmers</p>
+                    <p id="kpi-farmers" class="text-3xl font-bold text-agri-700 mt-1">1,420</p>
+                    <span class="text-xs text-gray-400">Target: 2,000 this quarter</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Active Consumers</p>
+                    <p id="kpi-consumers" class="text-3xl font-bold text-agri-700 mt-1">12,850</p>
+                    <span class="text-xs text-agri-600 font-semibold">+18% growth</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Order Fulfilment Rate</p>
+                    <p id="kpi-fulfillment" class="text-3xl font-bold text-agri-700 mt-1">96.8%</p>
+                    <span class="text-xs text-agri-600 font-semibold">Above benchmark</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <p class="text-sm font-medium text-gray-500">Avg. Farmer Income Inc.</p>
+                    <p id="kpi-income" class="text-3xl font-bold text-agri-700 mt-1">+34%</p>
+                    <span class="text-xs text-gray-400">Compared to middlemen</span>
+                </div>
+            </div>
+
+            <!-- Admin Quick Actions & Table -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-gray-800 mb-4">Pending Farmer Verifications</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-sm">Sunil Patil (Nashik Farms)</p>
+                            <p class="text-xs text-gray-500">Crops: Grapes, Pomegranate • Organic Certified</p>
+                        </div>
+                        <div class="space-x-2">
+                            <button onclick="alert('Farmer Approved!')" class="bg-agri-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-agri-700">Approve</button>
+                            <button onclick="alert('Farmer Rejected')" class="bg-red-100 text-red-700 px-3 py-1 rounded text-xs font-medium hover:bg-red-200">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Dummy Product Dataset
+        const products = [
+            { id: 1, name: "Fresh Organic Tomatoes", category: "Vegetables", price: "₹45 / kg", farmer: "Ramesh Kumar", location: "Pune Rural", badge: "Organic", image: "🍅" },
+            { id: 2, name: "Alphonso Mangoes", category: "Fruits", price: "₹250 / kg", farmer: "Anant Deshmukh", location: "Ratnagiri", badge: "Direct Harvest", image: "🥭" },
+            { id: 3, name: "Farm Fresh Cow Milk", category: "Dairy", price: "₹65 / L", farmer: "Suresh Yadav", location: "Satara", badge: "Pure & Raw", image: "🥛" },
+            { id: 4, name: "Organic Basmati Rice", category: "Grains", price: "₹120 / kg", farmer: "Gurpreet Singh", location: "Karnal", badge: "Pesticide Free", image: "🌾" },
+            { id: 5, name: "Fresh Green Spinach", category: "Vegetables", price: "₹20 / bunch", farmer: "Ramesh Kumar", location: "Pune Rural", badge: "Harvested Today", image: "🥬" },
+            { id: 6, name: "Organic Honey", category: "Grains", price: "₹450 / 500g", farmer: "Mahesh Rao", location: "Mahabaleshwar", badge: "Wild Forest", image: "🍯" },
+            { id: 7, name: "Organic Quinoa", category: "Grains", price: "₹300 / kg", farmer: "Priya Sharma", location: "Dehradun", badge: "Gluten-Free", image: "🌾" },
+            { id: 8, name: "Fresh Strawberries", category: "Fruits", price: "₹150 / 250g", farmer: "Anant Deshmukh", location: "Mahabaleshwar", badge: "Seasonal", image: "🍓" },
+            { id: 9, name: "Organic Carrots", category: "Vegetables", price: "₹30 / kg", farmer: "Ramesh Kumar", location: "Pune Rural", badge: "Vitamin-Rich", image: "🥕" },
+            { id: 10, name: "Farm Fresh Paneer", category: "Dairy", price: "₹200 / 500g", farmer: "Suresh Yadav", location: "Satara", badge: "Soft & Creamy", image: "🧀" },
+        ];
+
+        // Render Product Cards
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            if (items.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">No products found matching your search.</p>`;
+                return;
+            }
+
+            items.forEach(p => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+                        <div class="h-40 bg-agri-50 flex items-center justify-center text-6xl">
+                            ${p.image}
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <span class="text-xs font-semibold text-agri-700 bg-agri-50 px-2 py-0.5 rounded">${p.badge}</span>
+                            <h3 class="font-bold text-gray-800">${p.name}</h3>
+                            <p class="text-sm text-gray-500">👨‍🌾 ${p.farmer} • 📍 ${p.location}</p>
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="text-lg font-bold text-gray-900">${p.price}</span>
+                                <button onclick="alert('Order placed for ${p.name}!')" class="bg-agri-600 hover:bg-agri-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Search and Filter Logic
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            const filtered = products.filter(p => {
+                const matchesQuery = p.name.toLowerCase().includes(query) || p.farmer.toLowerCase().includes(query);
+                const matchesCategory = category === 'all' || p.category === category;
+                return matchesQuery && matchesCategory;
+            });
+
+            renderProducts(filtered);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            ['consumer', 'farmer', 'admin'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`nav-${t}`).className = "font-medium text-gray-500 hover:text-agri-600 pb-1 transition border-b-2 border-transparent";
+            });
+
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabName}`).className = "font-medium text-agri-600 border-b-2 border-agri-600 pb-1 transition";
+        }
+
+        // Initial Load
+        renderProducts(products);
+    </script>
+</body>
+</html>
