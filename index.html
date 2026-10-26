@@ -179,8 +179,9 @@
                             <p class="text-xs text-gray-500">Crops: Grapes, Pomegranate • Organic Certified</p>
                         </div>
                         <div class="space-x-2">
-                            <button onclick="alert('Farmer Approved!')" class="bg-agri-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-agri-700">Approve</button>
-                            <button onclick="alert('Farmer Rejected')" class="bg-red-100 text-red-700 px-3 py-1 rounded text-xs font-medium hover:bg-red-200">Reject</button>
+                            const [status, setStatus] = useState('pending');
+                            <button onclick="setStatus('approved')" class="bg-agri-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-agri-700">Approve</button>
+                            <button onclick="setStatus('rejected')" class="bg-red-100 text-red-700 px-3 py-1 rounded text-xs font-medium hover:bg-red-200">Reject</button>
                         </div>
                     </div>
                 </div>
